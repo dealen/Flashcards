@@ -1,0 +1,70 @@
+﻿<Window x:Class="FlashcardsPF.Views.TestWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:FlashcardsPF.Views"
+        xmlns:vm="clr-namespace:Flashcards.Lib.ViewModels;assembly=Flashcards.Lib"
+        xmlns:converter="clr-namespace:FlashcardsPF.Converters"
+        mc:Ignorable="d"
+        Title="TestWindow" Height="350" Width="300">
+    <Window.DataContext>
+        <vm:TestViewModel/>
+    </Window.DataContext>
+
+    <Window.Resources>
+        <converter:BooleanToVisibilityConverter x:Key="bool2Visib" />
+    </Window.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <StackPanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="10"
+                    x:Name="panelExpression" Visibility="{Binding IsPanelWithOriginalWordVisible, Converter={StaticResource bool2Visib}}">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <Label Grid.Row="1" Content="{Binding ExpressionToBeTranslated}"></Label>
+                <Button Grid.Row="2" Content="Pokaż odpowiedź" Command="{Binding CommandContinueTest}" />
+            </Grid>
+        </StackPanel>
+
+        <StackPanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="10"
+                    x:Name="panelTranslation" Visibility="{Binding IsPanelWithTranslationWordVisible, Converter={StaticResource bool2Visib}}">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <Label Grid.Row="1" Content="{Binding ExpressionTranslated}"></Label>
+
+                <Button Content="Nastepne słowo" Command="{Binding }" />
+
+            </Grid>
+        </StackPanel>
+
+        <StackPanel x:Name="panelSummary" Visibility="{Binding IsPanelWithSummaryVisible, Converter={StaticResource bool2Visib}}">
+
+        </StackPanel>
+
+    </Grid>
+</Window>
