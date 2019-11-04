@@ -7,7 +7,7 @@
         xmlns:vm="clr-namespace:Flashcards.Lib.ViewModels;assembly=Flashcards.Lib"
         xmlns:converter="clr-namespace:FlashcardsPF.Converters"
         mc:Ignorable="d"
-        Title="TestWindow" Height="350" Width="300">
+        Title="TestWindow" Height="350" Width="400">
     <Window.DataContext>
         <vm:TestViewModel/>
     </Window.DataContext>
@@ -24,6 +24,20 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
+        <Grid.Resources>
+            <Style TargetType="TextBlock" x:Key="wordStyle" >
+                <Setter Property="FontSize" Value="18"/>
+                <Setter Property="Background" Value="Green"/>
+                <Setter Property="Foreground" Value="White"/>
+                <Setter Property="Padding" Value="15"/>
+                <Setter Property="Width" Value="350"/>
+                <Setter Property="Height" Value="200"/>
+                <Setter Property="HorizontalAlignment" Value="Center"/>
+                <Setter Property="VerticalAlignment" Value="Center"/>
+                <Setter Property="TextWrapping" Value="Wrap"/>
+            </Style>
+        </Grid.Resources>
+
         <StackPanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="10"
                     x:Name="panelExpression" Visibility="{Binding IsPanelWithOriginalWordVisible, Converter={StaticResource bool2Visib}}">
             <Grid>
@@ -37,7 +51,7 @@
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
 
-                <Label Grid.Row="1" Content="{Binding ExpressionToBeTranslated}"></Label>
+                <TextBlock Grid.Row="1" Text="{Binding ExpressionToBeTranslated}" Style="{StaticResource wordStyle}"></TextBlock>
                 <Button Grid.Row="2" Content="Pokaż odpowiedź" Command="{Binding CommandContinueTest}" />
             </Grid>
         </StackPanel>
@@ -55,9 +69,9 @@
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
 
-                <Label Grid.Row="1" Content="{Binding ExpressionTranslated}"></Label>
+                <TextBlock Grid.Row="1" Text="{Binding ExpressionTranslated}" Style="{StaticResource wordStyle}"></TextBlock>
 
-                <Button Content="Nastepne słowo" Command="{Binding }" />
+                <Button Grid.Row="2" Content="Nastepne słowo" Command="{Binding CommandNextWord}" />
 
             </Grid>
         </StackPanel>

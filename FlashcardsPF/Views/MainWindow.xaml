@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:vm="clr-namespace:Flashcards.Lib.ViewModels;assembly=Flashcards.Lib"
+        xmlns:models="clr-namespace:Flashcards.Lib.Models;assembly=Flashcards.Lib"
         xmlns:local="clr-namespace:FlashcardsPF"
         mc:Ignorable="d"
         Title="MainWindow" >
@@ -42,7 +43,13 @@
         </ListView>
 
         <StackPanel Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2">
-            <Button Content="Start" Command="{Binding CommandStartTest}" CommandParameter="{Binding Words}"></Button>
+            <Label Content="Sposób wyświetlania"/>
+            <CheckBox Content="Najpierw tłumaczenie" IsChecked="{Binding TranslationFirst}"/>
+            <Button Content="Start" Command="{Binding CommandStartTest}">
+                <Button.CommandParameter>
+                    <models:WindowParameter Words="{Binding Words}" IsTranslated="{Binding TranslationFirst}"/>
+                </Button.CommandParameter>
+            </Button>
         </StackPanel>
 
     </Grid>

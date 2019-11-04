@@ -16,7 +16,8 @@ namespace Flashcards.Lib.ViewModels
     {
         private DirectoryInfo _selectedDirectory;
         private List<Word> _words;
-        private RelayCommand<object> _commandStartTest;
+        private RelayCommand<WindowParameter> _commandStartTest;
+        private bool _translationFirst;
 
         public event Action<object> OnStartTest;
 
@@ -61,21 +62,31 @@ namespace Flashcards.Lib.ViewModels
             }
         }
 
+        public bool TranslationFirst
+        {
+            get { return _translationFirst; }
+            set
+            {
+                _translationFirst = value;
+                RaisePropertyChanged();
+            }
+        }
+
         public ObservableCollection<Word> WordsView { get; set; }
         public Word SelectedWord { get; set; }
 
 
-        public RelayCommand<object> CommandStartTest
+        public RelayCommand<WindowParameter> CommandStartTest
         {
-            get { return _commandStartTest ?? (_commandStartTest = new RelayCommand<object>(_StartTest)); }
+            get { return _commandStartTest ?? (_commandStartTest = new RelayCommand<WindowParameter>(_StartTest)); }
         }
 
-        private void _StartTest(object obj)
+        private void _StartTest(WindowParameter obj)
         {
             _OnStartTest(obj);
         }
 
-        protected void _OnStartTest(object obj)
+        protected void _OnStartTest(WindowParameter obj)
         {
             if (OnStartTest != null)
                 OnStartTest(obj);
